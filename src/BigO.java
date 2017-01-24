@@ -20,6 +20,7 @@ public class BigO {
 		for(int i = 0; i < deck.length; i++) {
 			shuffledDeck[i] = deck[i];
 		}
+		
 		shuffledDeck = shuffle(shuffledDeck);
 		
 		displayArray(shuffledDeck);
@@ -28,9 +29,12 @@ public class BigO {
 		for(int i = 0; i < deck.length; i++) {
 			shuffledDeck[i] = deck[i];
 		}
+		
 		reversedDeck = reverse(deck);
 		
 		displayArray(reversedDeck);
+		
+		System.out.println(hasAFullHouse(deck));
 		
 	}
 	
@@ -65,6 +69,42 @@ public class BigO {
 		}
 		
 		return reverseDeck;
+	}
+	
+	public static boolean hasAFullHouse(int[] cards){
+		
+		boolean hasDouble = false;
+		double numberWithDouble = .1;
+		boolean hasTripple = false;
+		double numberWithTripple = .1;
+		int multiples = 0;
+		
+		for(int i = 0; i < cards.length; i++) {
+			multiples = 0;
+			if(cards[i] != numberWithDouble && cards[i] != numberWithTripple) {
+				for(int j = 0; j < cards.length; j++) {
+					if(cards[i] == cards[j]) {
+						multiples ++;
+					}
+				}
+			}
+			if(multiples >= 2) {
+				if(multiples == 2) {
+					hasDouble = true;
+					numberWithDouble = cards[i];
+				} else if(multiples >= 3 && hasTripple) {
+					hasDouble = true;
+					numberWithDouble = cards[i];
+				} else {
+					hasTripple = true;
+					numberWithTripple = cards[i];
+				}
+			}
+			
+		}
+		
+		return (hasDouble && hasTripple);
+		
 	}
 	
 	public static void displayArray(int[] ary) {
